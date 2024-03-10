@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Clonium
 {
@@ -17,13 +18,18 @@ namespace Clonium
 
         public static Field Field { get; set; }
         public static string FieldName { get; set; }
+        public static int FieldSize { get; set; }
         public static int PlayersCount { get; set; }
-
-
-        public static void Initialize(string field = "Field1", int numberOfPlayers = 1, bool isFirstGame = true)
+        public static Color CurrentColor
         {
-            int size = field == "Field1" || field == "Field3" ? 6 : 8;
+            get { return _playerColorsList[_currentPlayer]; }
+        }
+
+
+        public static void Initialize(string field, int size, int numberOfPlayers, bool isFirstGame = true)
+        {
             FieldName = field;
+            FieldSize = size;
             PlayersCount = numberOfPlayers;
 
             Field = new Field(size);
@@ -58,51 +64,121 @@ namespace Clonium
         }
         private static void InitializeCells()
         {
+            int centerX = Field.Dimension / 2;
+            int centerY = Field.Dimension / 2 - 1;
+            int endField = Field.Dimension - 1;
+
             switch (FieldName)
             {
-                case "Field3":
+                case "Field2":
                     Field.Cells[0, 0].Activate = false;
-                    Field.Cells[0, Field.Dimension - 1].Activate = false;
-                    Field.Cells[Field.Dimension - 1, 0].Activate = false;
-                    Field.Cells[Field.Dimension - 1, Field.Dimension - 1].Activate = false;
+                    Field.Cells[0, endField].Activate = false;
+                    Field.Cells[endField, 0].Activate = false;
+                    Field.Cells[endField, endField].Activate = false;
+
+                    if (FieldSize >= 12)
+                    {
+                        Field.Cells[0, 1].Activate = false;
+                        Field.Cells[1, 0].Activate = false;
+                        Field.Cells[endField - 1, 0].Activate = false;
+                        Field.Cells[0, endField - 1].Activate = false;
+                        Field.Cells[endField, 1].Activate = false;
+                        Field.Cells[1, endField].Activate = false;
+                        Field.Cells[endField, endField - 1].Activate = false;
+                        Field.Cells[endField - 1, endField].Activate = false;
+                    }
+
+                    break;
+                case "Field3":
+                    Field.Cells[0, centerX].Activate = false;
+                    Field.Cells[0, centerY].Activate = false;
+                    Field.Cells[centerX, 0].Activate = false;
+                    Field.Cells[centerY, 0].Activate = false;
+                    Field.Cells[centerX, endField].Activate = false;
+                    Field.Cells[centerY, endField].Activate = false;
+                    Field.Cells[endField, centerX].Activate = false;
+                    Field.Cells[endField, centerY].Activate = false;
+
+                    if (FieldSize >= 12)
+                    {
+                        Field.Cells[0, centerX + 1].Activate = false;
+                        Field.Cells[0, centerY - 1].Activate = false;
+                        Field.Cells[centerX + 1, 0].Activate = false;
+                        Field.Cells[centerY - 1, 0].Activate = false;
+                        Field.Cells[centerX + 1, endField].Activate = false;
+                        Field.Cells[centerY - 1, endField].Activate = false;
+                        Field.Cells[endField, centerX + 1].Activate = false;
+                        Field.Cells[endField, centerY - 1].Activate = false;
+
+
+                        Field.Cells[1, centerX].Activate = false;
+                        Field.Cells[1, centerY].Activate = false;
+                        Field.Cells[centerX, 1].Activate = false;
+                        Field.Cells[centerY, 1].Activate = false;
+                        Field.Cells[centerX, endField - 1].Activate = false;
+                        Field.Cells[centerY, endField - 1].Activate = false;
+                        Field.Cells[endField - 1, centerX].Activate = false;
+                        Field.Cells[endField - 1, centerY].Activate = false;
+                    }
+
                     break;
                 case "Field4":
-                    Field.Cells[0, 3].Activate = false;
-                    Field.Cells[0, 4].Activate = false;
-                    Field.Cells[3, 0].Activate = false;
-                    Field.Cells[4, 0].Activate = false;
-                    Field.Cells[3, 7].Activate = false;
-                    Field.Cells[4, 7].Activate = false;
-                    Field.Cells[7, 3].Activate = false;
-                    Field.Cells[7, 4].Activate = false;
-                    break;
-                case "Field5":
-                    Field.Cells[3, 3].Activate = false;
-                    Field.Cells[3, 4].Activate = false;
-                    Field.Cells[4, 3].Activate = false;
-                    Field.Cells[4, 4].Activate = false;
-                    goto case "Field3";
+                    Field.Cells[centerX, centerX].Activate = false;
+                    Field.Cells[centerX, centerY].Activate = false;
+                    Field.Cells[centerY, centerX].Activate = false;
+                    Field.Cells[centerY, centerY].Activate = false;
+
+                    if (FieldSize >= 12)
+                    {
+                        Field.Cells[centerY, centerY - 1].Activate = false;
+                        Field.Cells[centerX, centerY - 1].Activate = false;
+                        Field.Cells[centerY, centerX + 1].Activate = false;
+                        Field.Cells[centerX, centerX + 1].Activate = false;
+                        Field.Cells[centerY - 1, centerX].Activate = false;
+                        Field.Cells[centerY - 1, centerY].Activate = false;
+                        Field.Cells[centerX + 1, centerX].Activate = false;
+                        Field.Cells[centerX + 1, centerY].Activate = false;
+                        Field.Cells[centerY - 1, centerY - 1].Activate = false;
+                        Field.Cells[centerX + 1, centerY - 1].Activate = false;
+                        Field.Cells[centerY - 1, centerX + 1].Activate = false;
+                        Field.Cells[centerX + 1, centerX + 1].Activate = false;
+                    }
+
+                    goto case "Field2";
             }
         }
         private static void InitializeChips()
         {
-            Field.Cells[1, 1].Chip.Value = 3;
-            Field.Cells[1, 1].Chip.Color = Color.Blue;
+            if (FieldSize >= 12 && FieldName != "Field1" && FieldName != "Field3")
+            {
+                Field.ActivateChip(2, 2, Color.Blue);
+                Field.ActivateChip(Field.Dimension - 3, Field.Dimension - 3, Color.Red);
 
-            Field.Cells[Field.Dimension - 2, Field.Dimension - 2].Chip.Value = 3;
-            Field.Cells[Field.Dimension - 2, Field.Dimension - 2].Chip.Color = Color.Red;
+                if (PlayersCount >= 3)
+                {
+                    Field.ActivateChip(Field.Dimension - 3, 2, Color.Green);
+                }
 
-            if (PlayersCount < 3)
-                return;
+                if (PlayersCount >= 4)
+                {
+                    Field.ActivateChip(2, Field.Dimension - 3, Color.Purple);
+                }
+            }
+            else
+            {
+                Field.ActivateChip(1, 1, Color.Blue);
+                Field.ActivateChip(Field.Dimension - 2, Field.Dimension - 2, Color.Red);
 
-            Field.Cells[Field.Dimension - 2, 1].Chip.Value = 3;
-            Field.Cells[Field.Dimension - 2, 1].Chip.Color = Color.Green;
+                if (PlayersCount >= 3)
+                {
+                    Field.ActivateChip(Field.Dimension - 2, 1, Color.Green);
+                }
 
-            if (PlayersCount < 4)
-                return;
-
-            Field.Cells[1, Field.Dimension - 2].Chip.Value = 3;
-            Field.Cells[1, Field.Dimension - 2].Chip.Color = Color.Purple;
+                if (PlayersCount >= 4)
+                {
+                    Field.ActivateChip(1, Field.Dimension - 2, Color.Purple);
+                }
+            }
         }
 
 
@@ -131,7 +207,7 @@ namespace Clonium
 
             Color colorChip = Field.GetColorChip(row, col);
 
-            Field.AddValueChip(colorChip, row, col);
+            Field.AddValueChip(row, col, colorChip);
 
             CheckSeparation(colorChip);
 
@@ -140,6 +216,7 @@ namespace Clonium
         }
         private static void AutoMove()
         {
+            Thread.Sleep(100);
             var redCells = Field.GetRedCells();
             if (redCells.Count() == 0)
                 return;
@@ -155,10 +232,10 @@ namespace Clonium
             {
                 Field.Cells[row, col].Chip.Value -= MaxValueChip;
 
-                Field.AddValueChip(colorChip, row - 1, col);
-                Field.AddValueChip(colorChip, row + 1, col);
-                Field.AddValueChip(colorChip, row, col - 1);
-                Field.AddValueChip(colorChip, row, col + 1);
+                Field.AddValueChip(row - 1, col, colorChip);
+                Field.AddValueChip(row + 1, col, colorChip);
+                Field.AddValueChip(row, col - 1, colorChip);
+                Field.AddValueChip(row, col + 1, colorChip);
             }
         }
         private static void CheckGameOver()
@@ -167,7 +244,7 @@ namespace Clonium
             {
                 Color winningColor = Field.GetDistinctColors().First();
                 MessageBox.Show($"Игра окончена! Победил {winningColor}.");
-                Initialize(FieldName, PlayersCount, false);
+                Initialize(FieldName, FieldSize, PlayersCount, false);
             }
         }
     }

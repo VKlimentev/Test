@@ -2,6 +2,9 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Svg;
+using System.IO;
+using System.Resources;
 
 namespace Clonium
 {
@@ -12,7 +15,8 @@ namespace Clonium
         private static int _marginLeft;
         private static int _marginTop;
 
-        private static Bitmap[,] _chipImages;
+        private static Image[,] _enableChipImages;
+        private static Image[,] _disenableChipImages;
         private static Dictionary<Color, int> _colors;
 
         public static Field Field { get; set; }
@@ -22,6 +26,7 @@ namespace Clonium
         {
             _mainForm = new MainForm();
             _mainForm.ClientSizeChanged += new EventHandler(MainForm_ClientSizeChanged);
+            _mainForm.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
             InitializeResource();
             InitializeColors();
@@ -31,28 +36,32 @@ namespace Clonium
         }
 
 
-        public static Bitmap CropImage(Bitmap sourceImage, int x, int y, int width, int height)
-        {
-            Bitmap croppedImage = new Bitmap(width, height);
-
-            using (Graphics g = Graphics.FromImage(croppedImage))
-            {
-                g.DrawImage(sourceImage, new Rectangle(0, 0, width, height), new Rectangle(x, y, width, height), GraphicsUnit.Pixel);
-            }
-
-            return croppedImage;
-        }
         private static void InitializeResource()
         {
-            int size = 90;
+            ResourceManager resourceManager = new ResourceManager("Clonium.Resource", typeof(Resource).Assembly);
+            _enableChipImages = new Image[4, 4];
+            _disenableChipImages = new Image[4, 4];
 
-            _chipImages = new Bitmap[4, 4];
-
-            for (int i = 0; i < 4; i++)
+            for (int i = 0, k = 0; i < 4; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; j++, k++)
                 {
-                    _chipImages[i, j] = CropImage(Resource.Chips, i * size, j * size, size, size);
+                    string enableChipName = "enableChip" + k;
+                    string disenableChipName = "disenableChip" + k;
+
+                    _enableChipImages[j, i] = LoadSvgImage(resourceManager, enableChipName);
+                    _disenableChipImages[j, i] = LoadSvgImage(resourceManager, disenableChipName);
+                }
+            }
+        }
+        private static Image LoadSvgImage(ResourceManager resourceManager, string resourceName)
+        {
+            using (Stream svgStream = new MemoryStream((byte[])resourceManager.GetObject(resourceName)))
+            {
+                using (StreamReader reader = new StreamReader(svgStream))
+                {
+                    string svgContent = reader.ReadToEnd();
+                    return SvgDocument.FromSvg<SvgDocument>(svgContent).Draw();
                 }
             }
         }
@@ -100,7 +109,10 @@ namespace Clonium
                     button.Location = new Point(j * _cellSize + _marginLeft, i * _cellSize + _marginTop);
                     button.Size = new Size(_cellSize, _cellSize);
                     button.BackgroundImageLayout = ImageLayout.Zoom;
-                    button.BackgroundImage = _chipImages[Field.GetValueChip(i, j), _colors[Field.GetColorChip(i, j)]];
+                    if (Field.GetColorChip(i, j) == Controller.CurrentColor)
+                        button.BackgroundImage = _enableChipImages[Field.GetValueChip(i, j), _colors[Field.GetColorChip(i, j)]];
+                    else
+                        button.BackgroundImage = _disenableChipImages[Field.GetValueChip(i, j), _colors[Field.GetColorChip(i, j)]];
                     button.Click += Cell_Click;
                     _mainForm.Controls.Add(button);
 
@@ -119,7 +131,10 @@ namespace Clonium
                     {
                         button.Size = new Size(_cellSize, _cellSize);
                         button.Location = new Point(j * _cellSize + _marginLeft, i * _cellSize + _marginTop);
-                        button.BackgroundImage = _chipImages[Field.GetValueChip(i, j), _colors[Field.GetColorChip(i, j)]];
+                        if (Field.GetColorChip(i, j) == Controller.CurrentColor)
+                            button.BackgroundImage = _enableChipImages[Field.GetValueChip(i, j), _colors[Field.GetColorChip(i, j)]];
+                        else
+                            button.BackgroundImage = _disenableChipImages[Field.GetValueChip(i, j), _colors[Field.GetColorChip(i, j)]];
                         Field.Cells[i, j].Coordinates = button.Location;
                     }
                 }
@@ -189,15 +204,21 @@ namespace Clonium
         }
         private static void NewGame_Click(object sender, EventArgs e)
         {
-            Controller.Initialize(Controller.FieldName, Controller.PlayersCount, false);
+            Controller.Initialize(Controller.FieldName, Controller.Field.Dimension, Controller.PlayersCount, false);
         }
         private static void Settings_Click(object sender, EventArgs e)
         {
-            Settings settings = new Settings(Controller.FieldName, Controller.PlayersCount);
+            Settings settings = new Settings(Controller.FieldName, Controller.FieldSize, Controller.PlayersCount);
             settings.Show();
         }
+        private static void MainForm_FormClosing(object sender, EventArgs e)
+        {
+            GameConfigManager.SaveGameConfig(Controller.FieldName, Controller.Field.Dimension, Controller.PlayersCount);
+        }
+
         private static void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            GameConfigManager.SaveGameConfig(Controller.FieldName, Controller.Field.Dimension, Controller.PlayersCount);
             Application.Exit();
         }
     }

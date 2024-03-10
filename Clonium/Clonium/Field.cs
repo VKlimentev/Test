@@ -46,8 +46,13 @@ namespace Clonium
         {
             return _cells[row, col].Chip.Color;
         }
+        public void ActivateChip(int row, int col, Color color)
+        {
+            _cells[row, col].Chip.Value = 3;
+            _cells[row, col].Chip.Color = color;
 
-        public void AddValueChip(Color color, int row, int col)
+        }
+        public void AddValueChip(int row, int col, Color color)
         {
             if (
                 row < 0 ||
@@ -62,6 +67,7 @@ namespace Clonium
             _cells[row, col].Chip.Color = color;
 
         }
+
 
         public bool FindCellByValue(int value, out int row, out int col)
         {

@@ -16,7 +16,8 @@ namespace Clonium
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Controller.Initialize();
+            GameConfigManager.LoadGameConfig(out string field, out int size, out int numberOfPlayers);
+            Controller.Initialize(field, size, numberOfPlayers);
         }
     }
 }

@@ -36,10 +36,11 @@
             this.Field2 = new System.Windows.Forms.RadioButton();
             this.Field3 = new System.Windows.Forms.RadioButton();
             this.Field4 = new System.Windows.Forms.RadioButton();
-            this.Field5 = new System.Windows.Forms.RadioButton();
             this.numberOfPlayers = new System.Windows.Forms.GroupBox();
             this.Fields = new System.Windows.Forms.GroupBox();
             this.OK = new System.Windows.Forms.Button();
+            this.FieldSizes = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.numberOfPlayers.SuspendLayout();
             this.Fields.SuspendLayout();
             this.SuspendLayout();
@@ -138,17 +139,6 @@
             this.Field4.UseVisualStyleBackColor = true;
             this.Field4.CheckedChanged += new System.EventHandler(this.FieldRadioButtons_CheckedChanged);
             // 
-            // Field5
-            // 
-            this.Field5.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Field5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Field5.Location = new System.Drawing.Point(270, 19);
-            this.Field5.Name = "Field5";
-            this.Field5.Size = new System.Drawing.Size(60, 60);
-            this.Field5.TabIndex = 0;
-            this.Field5.TabStop = true;
-            this.Field5.UseVisualStyleBackColor = true;
-            // 
             // numberOfPlayers
             // 
             this.numberOfPlayers.Controls.Add(this.OnePlayer);
@@ -157,7 +147,7 @@
             this.numberOfPlayers.Controls.Add(this.ThreePlayers);
             this.numberOfPlayers.Location = new System.Drawing.Point(12, 12);
             this.numberOfPlayers.Name = "numberOfPlayers";
-            this.numberOfPlayers.Size = new System.Drawing.Size(338, 51);
+            this.numberOfPlayers.Size = new System.Drawing.Size(272, 51);
             this.numberOfPlayers.TabIndex = 1;
             this.numberOfPlayers.TabStop = false;
             this.numberOfPlayers.Text = "Количество игроков";
@@ -166,19 +156,18 @@
             // 
             this.Fields.Controls.Add(this.Field1);
             this.Fields.Controls.Add(this.Field2);
-            this.Fields.Controls.Add(this.Field5);
             this.Fields.Controls.Add(this.Field3);
             this.Fields.Controls.Add(this.Field4);
             this.Fields.Location = new System.Drawing.Point(12, 69);
             this.Fields.Name = "Fields";
-            this.Fields.Size = new System.Drawing.Size(338, 92);
+            this.Fields.Size = new System.Drawing.Size(272, 92);
             this.Fields.TabIndex = 2;
             this.Fields.TabStop = false;
-            this.Fields.Text = "Игровое поле";
+            this.Fields.Text = "Тип поля";
             // 
             // OK
             // 
-            this.OK.Location = new System.Drawing.Point(274, 167);
+            this.OK.Location = new System.Drawing.Point(209, 170);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(75, 23);
             this.OK.TabIndex = 3;
@@ -186,11 +175,37 @@
             this.OK.UseVisualStyleBackColor = true;
             this.OK.Click += new System.EventHandler(this.OK_Click);
             // 
+            // FieldSizes
+            // 
+            this.FieldSizes.FormattingEnabled = true;
+            this.FieldSizes.Items.AddRange(new object[] {
+            "6x6",
+            "8x8",
+            "10x10",
+            "12x12",
+            "14x14",
+            "16x16"});
+            this.FieldSizes.Location = new System.Drawing.Point(123, 167);
+            this.FieldSizes.Name = "FieldSizes";
+            this.FieldSizes.Size = new System.Drawing.Size(67, 21);
+            this.FieldSizes.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 170);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Размерность поля";
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 202);
+            this.ClientSize = new System.Drawing.Size(295, 199);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.FieldSizes);
             this.Controls.Add(this.OK);
             this.Controls.Add(this.Fields);
             this.Controls.Add(this.numberOfPlayers);
@@ -202,6 +217,7 @@
             this.numberOfPlayers.PerformLayout();
             this.Fields.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -215,9 +231,10 @@
         private System.Windows.Forms.RadioButton Field2;
         private System.Windows.Forms.RadioButton Field3;
         private System.Windows.Forms.RadioButton Field4;
-        private System.Windows.Forms.RadioButton Field5;
         private System.Windows.Forms.GroupBox numberOfPlayers;
         private System.Windows.Forms.GroupBox Fields;
         private System.Windows.Forms.Button OK;
+        private System.Windows.Forms.ComboBox FieldSizes;
+        private System.Windows.Forms.Label label1;
     }
 }
