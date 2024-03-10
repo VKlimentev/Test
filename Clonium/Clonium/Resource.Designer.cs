@@ -61,12 +61,322 @@ namespace Clonium {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap Chips {
+        internal static byte[] disenableChip0 {
             get {
-                object obj = ResourceManager.GetObject("Chips", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("disenableChip0", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip1 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip10 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip10", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip11 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip11", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip12 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip12", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip13 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip13", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip14 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip14", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip15 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip15", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip2 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip3 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip4 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip5 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip6 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip7 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip7", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip8 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip8", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] disenableChip9 {
+            get {
+                object obj = ResourceManager.GetObject("disenableChip9", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip0 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip0", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip1 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip10 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip10", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip11 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip11", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip12 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip12", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip13 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip13", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip14 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip14", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip15 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip15", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip2 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip3 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip4 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip5 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip6 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip7 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip7", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip8 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip8", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] enableChip9 {
+            get {
+                object obj = ResourceManager.GetObject("enableChip9", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

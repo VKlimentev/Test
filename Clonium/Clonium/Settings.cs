@@ -9,11 +9,13 @@ namespace Clonium
     {
         private static Bitmap[,] _mapImages;
         private static string _fieldName;
+        private static int _fieldSize;
         private static int _playersCount;
 
-        public Settings(string fieldName, int playersCount)
+        public Settings(string fieldName, int fieldSize, int playersCount)
         {
             _fieldName = fieldName;
+            _fieldSize = fieldSize;
             _playersCount = playersCount;
 
             InitializeComponent();
@@ -28,6 +30,8 @@ namespace Clonium
                 }
             }
 
+            FieldSizes.Text = fieldSize + "x" + fieldSize;
+
             foreach (Control control in Fields.Controls)
             {
                 if (((RadioButton)control).Name == fieldName)
@@ -37,22 +41,33 @@ namespace Clonium
             }
             FieldRadioButtons_CheckedChanged(new object(), new EventArgs());
         }
+        public Bitmap CropImage(Bitmap sourceImage, int x, int y, int width, int height)
+        {
+            Bitmap croppedImage = new Bitmap(width, height);
+
+            using (Graphics g = Graphics.FromImage(croppedImage))
+            {
+                g.DrawImage(sourceImage, new Rectangle(0, 0, width, height), new Rectangle(x, y, width, height), GraphicsUnit.Pixel);
+            }
+
+            return croppedImage;
+        }
         private void InitializeResourse()
         {
-            _mapImages = new Bitmap[5, 2];
-            int size = 90;
-            for (int i = 0; i < 5; i++)
+            _mapImages = new Bitmap[4, 2];
+            int size = 128;
+            for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    _mapImages[i, j] = Painter.CropImage(Resource.Maps, j * size, i * size, size, size);
+                    _mapImages[i, j] = CropImage(Resource.Maps, j * size, i * size, size, size);
                 }
             }
         }
         private void InitializeImages()
         {
             Fields.Controls[0].BackgroundImage = _mapImages[0, 1];
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i < 4; i++)
             {
                 Fields.Controls[i].BackgroundImage = _mapImages[i, 0];
             }
@@ -60,7 +75,7 @@ namespace Clonium
 
         private void FieldRadioButtons_CheckedChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Fields.Controls[i].BackgroundImage = ((RadioButton)Fields.Controls[i]).Checked ? _mapImages[i, 1] : _mapImages[i, 0];
             }
@@ -70,6 +85,7 @@ namespace Clonium
         {
             int playersCount = 1;
             string fieldName = "fieldName1";
+            int fieldSize = 6;
 
             foreach (Control control in numberOfPlayers.Controls)
             {
@@ -83,10 +99,12 @@ namespace Clonium
                     fieldName = ((RadioButton)control).Name;
             }
 
+            fieldSize = int.Parse(FieldSizes.Text.Split('x')[0]);
+
             this.Close();
 
-            if (_fieldName != fieldName || _playersCount != playersCount)
-                Controller.Initialize(fieldName, playersCount, false);
+            if (_fieldName != fieldName || _fieldSize != fieldSize || _playersCount != playersCount)
+                Controller.Initialize(fieldName, fieldSize, playersCount, false);
         }
     }
 }
